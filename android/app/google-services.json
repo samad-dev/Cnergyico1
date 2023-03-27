@@ -1,0 +1,155 @@
+{
+  "project_info": {
+    "project_number": "803188197973",
+    "firebase_url": "https://cnergico-connect-default-rtdb.firebaseio.com",
+    "project_id": "cnergico-connect",
+    "storage_bucket": "cnergico-connect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803188197973:android:13c7988edf5e0fbd59a2dc",
+        "android_client_info": {
+          "package_name": "com.byco.cnergyico"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803188197973-16djgn7h2tlttvrdsstper93pdr9h4at.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvw2KPkdEVBxxN8F9OQINwdZsXexg01FI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803188197973-16djgn7h2tlttvrdsstper93pdr9h4at.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "803188197973-uvv7208ik55ra4ucgbcccaollvte8icm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cnergyico.conecct"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803188197973:android:c686833dd818b35d59a2dc",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app_byco2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803188197973-16djgn7h2tlttvrdsstper93pdr9h4at.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvw2KPkdEVBxxN8F9OQINwdZsXexg01FI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803188197973-16djgn7h2tlttvrdsstper93pdr9h4at.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "803188197973-uvv7208ik55ra4ucgbcccaollvte8icm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cnergyico.conecct"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803188197973:android:584dae76bc62f68459a2dc",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803188197973-16djgn7h2tlttvrdsstper93pdr9h4at.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvw2KPkdEVBxxN8F9OQINwdZsXexg01FI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803188197973-16djgn7h2tlttvrdsstper93pdr9h4at.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "803188197973-uvv7208ik55ra4ucgbcccaollvte8icm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cnergyico.conecct"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803188197973:android:b77e8d7b65feaf1a59a2dc",
+        "android_client_info": {
+          "package_name": "com.p2p.cnergyico.cnergyico"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803188197973-16djgn7h2tlttvrdsstper93pdr9h4at.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvw2KPkdEVBxxN8F9OQINwdZsXexg01FI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803188197973-16djgn7h2tlttvrdsstper93pdr9h4at.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "803188197973-uvv7208ik55ra4ucgbcccaollvte8icm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cnergyico.conecct"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
