@@ -732,31 +732,6 @@ class _UniformScreenState extends State<UniformScreen> {
                             height: 5,
                           ),
 
-                          // Container(
-                          //   alignment: Alignment.centerLeft,
-                          //   child: Text("Enter Transaction Id", style: TextStyle(fontSize: 18),),
-                          // ),
-                          //
-                          // SizedBox(
-                          //   height: 5,
-                          // ),
-                          //
-                          // Center(
-                          //   child: TextField (
-                          //     keyboardType: TextInputType.number,
-                          //     controller: transactionController,
-                          //     decoration: InputDecoration(
-                          //         border: UnderlineInputBorder(),
-                          //         labelText: 'Transaction Id',
-                          //         hintText: 'Enter Transaction Id',
-                          //         labelStyle: TextStyle(fontSize: 18, letterSpacing: 1)
-                          //     ),
-                          //   ),
-                          // ),
-                          //
-                          // SizedBox(
-                          //   height: 30,
-                          // ),
 
                           Container(
                             alignment: Alignment.centerLeft,

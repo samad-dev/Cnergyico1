@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cnergyico/HistoryPage.dart';
 import 'package:cnergyico/LoginPage.dart';
@@ -8,6 +10,7 @@ import 'package:cnergyico/OrderPage.dart';
 import 'package:cnergyico/Uniform.dart';
 import 'package:cnergyico/addusers.dart';
 import 'package:cnergyico/utils/constants.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,8 +24,22 @@ class BycoUserScreens extends StatefulWidget {
 class _BycoUserScreensState extends State<BycoUserScreens> {
   var uid, uname, upass, ucnic, uphone;
   late String _mySelection;
-  // ignore: deprecated_member_use
+  File? _image;
+  File? _image1;
+  UploadTask? task;
+  late String basename;
 
+  int _counter = 0;
+
+  // File _image;
+  late String _uploadedFileURL;
+  String isLoading = "false";
+
+  String checkloadbtn = "Confirm";
+
+  String isLoadingCircle = "false";
+  // ignore: deprecated_member_use
+  TextEditingController amountController = new TextEditingController();
   void shprefer1() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
@@ -44,7 +61,10 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
     //checkfields();
     //checkLogin();
   }
-
+  String dropdownValue = "Normal Uniform";
+  String dropdownValue1 = "Small";
+  String dropdownValue2 = "Refinery";
+  String dropdownValue3 = "NA";
   int _selectedIndex = 2;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -78,6 +98,25 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
 
     return "Sucess";
   }
+  bool post_clicked = false;
+  Future<void> request() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // print(
+    //     'http://151.106.17.246:8080/byco/api/uniorder.php?qty1=${smallcontroller.text.toString()}&qty2=${mcontroller.text.toString()}&qty3=${lcontroller.text.toString()}&qty4=${xlcontroller.text.toString()}&userid=${sharedPreferences.get("id").toString()}&type_id=${_mySelection3}');
+    // var request = http.Request(
+    //     'GET',
+    //     Uri.parse(
+    //         'http://151.106.17.246:8080/byco/api/uniorder.php?qty1=${smallcontroller.text.toString()}&qty2=${mcontroller.text.toString()}&qty3=${lcontroller.text.toString()}&qty4=${xlcontroller.text.toString()}&userid=${sharedPreferences.get("id").toString()}&type_id=${_mySelection3}'));
+    //
+    // http.StreamedResponse response = await request.send();
+    //
+    // if (response.statusCode == 200) {
+    //   Fluttertoast.showToast(msg: "Order Placed Successfully");
+    // } else {
+    //   Fluttertoast.showToast(msg: response.statusCode.toString());
+    // }
+  }
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -188,7 +227,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
           children: [
             Container(
               child: Text(
-                "Uniform List",
+                "Invoice List",
                 style: TextStyle(
                   color: Constants.primaryorrange,
                 ),
@@ -407,93 +446,167 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                                             fontWeight: FontWeight.bold))
                                 ],
                               ),
-                              /*Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Quantity: ',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                  Text('${_loadedPhotos[index]["quantity"]}',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                ],
-                              ),*/
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Select Bank",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
 
-                              /* Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('CNIC: ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                            Text('${_loadedPhotos[index]["type_id"]}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                          ],
-                        ),*/
+                              SizedBox(
+                                height: 5,
+                              ),
 
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     Text('Bank Info: ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                              //     Text('${_loadedPhotos[index]["bank_info"]}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                              //   ],
-                              // ),
+                              Container(
+                                width: double.infinity,
+                                child: DropdownButton<String>(
+                                  value: dropdownValue3,
+                                  // value: "HBL Bank Ltd.",
+                                  hint: Text('Select bank'),
+                                  // icon: const Icon(Icons.arrow_downward),
+                                  // iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(
+                                      color: Colors.black54, fontSize: 18),
+                                  // underline: Container(
+                                  //   height: 2,
+                                  //   color: Colors.deepPurpleAccent,
+                                  // ),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      dropdownValue3 = newValue!;
+                                    });
+                                  },
+                                  // value: dropdownValue3.toString(),
+                                  items: <String>[
+                                    'NA',
+                                    'HBL Bank Ltd.',
+                                    'Bank AL Habib',
+                                    'MCB',
+                                    'Silk Bank',
+                                    'Askari Bank',
+                                    'Bank Alfalah Limited',
+                                    'National Bank',
+                                    'Meezan Bank',
+                                    'Faysal Bank (Islamic)',
+                                    'Other'
+                                  ].map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
 
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     Text('Product Type: '),
-                              //     Text('${_loadedPhotos[index]["product_type"]}'),
-                              //   ],
-                              // ),
+                              SizedBox(
+                                height: 5,
+                              ),
 
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     Text('Amount: ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                              //     Text('${_loadedPhotos[index]["amount"]}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                              //   ],
-                              // ),
-                              //
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     Text('Transaction Id: ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                              //     Text('${_loadedPhotos[index]["trasection_id"]}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                              //   ],
-                              // ),
-                              //
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     Text('Vehicle Number: ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                              //     Text('${_loadedPhotos[index]["vehicle"]}', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                              //   ],
-                              // ),
 
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Enter Amount",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
+
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Center(
+                                child: TextField(
+                                  inputFormatters: [
+                                    CurrencyTextInputFormatter(
+                                      locale: 'ko',
+                                      decimalDigits: 0,
+                                      symbol: ' ',
+                                    )
+                                  ],
+                                  controller: amountController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                      border: UnderlineInputBorder(),
+                                      labelText: 'Amount',
+                                      hintText: 'Enter Amount',
+                                      labelStyle: TextStyle(
+                                          fontSize: 18, letterSpacing: 1)),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 05,
+                              ),
+
+                              InkWell(
+                                onTap: () {
+                                  dialog(context);
+                                },
+                                child: Column(
+                                  children: [
+                                    // Icon(Icons.camera_alt),
+                                    Center(
+                                      child: Container(
+                                        // height: MediaQuery.of(context).size.height * .2,
+                                        // width: MediaQuery.of(context).size.width * 1,
+                                        height: 150,
+                                        width: double.infinity,
+                                        child: _image != null
+                                            ? ClipRect(
+                                          child: Image.file(
+                                            _image!.absolute,
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        )
+                                            : Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white60,
+                                            border: Border.all(width: 3),
+                                          ),
+                                          child: Icon(
+                                            Icons.camera_alt,
+                                            color: Constants.primarygreen,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 05,
+                              ),
+
+                              GestureDetector(
+                                onTap: () {
+                                  request();
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: double.infinity,
+                                  height: 50,
+                                  child: Text(
+                                    "Place Order",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Constants.primaryorrange,
+                                      fontSize: 20,
+                                      letterSpacing: 5,
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Constants.primarygreen,
+                                  ),
+                                ),
+                              ),
                               SizedBox(
                                 height: 20,
                               ),
-                              /*GestureDetector(
-                          onTap: (){
-                            deleteusers(_loadedPhotos[index]["id"]);
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) => BycoUserScreens()),
-                                    (Route<dynamic>route) => false);
-                          },
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(10)
-                            ),
-                            margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                            child: Center(
-                              child: Icon(Icons.delete, color: Colors.white,),
-                            ),
-                          ),
-                        ),*/
+
                             ],
                           ),
                         ),
@@ -504,6 +617,66 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
               ),
       ),
     );
+  }
+
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print("no image selected");
+      }
+    });
+  }
+
+  Future getCamera() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print("no image selected");
+      }
+    });
+  }
+
+  void dialog(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              height: 120,
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      getImage();
+                      Navigator.pop(context);
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.camera),
+                      title: Text("Gallery"),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      getCamera();
+                      Navigator.pop(context);
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.camera_alt),
+                      title: Text("Camera"),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   deleteusers(String userid) async {
