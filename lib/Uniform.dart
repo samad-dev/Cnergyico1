@@ -279,7 +279,7 @@ class _UniformScreenState extends State<UniformScreen> {
   int _selectedIndex = 2;
 
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     // Text(
     //   'Index 0: Home',
@@ -782,23 +782,23 @@ class _UniformScreenState extends State<UniformScreen> {
                                     width: double.infinity,
                                     child: _image != null
                                         ? ClipRect(
-                                            child: Image.file(
-                                              _image!.absolute,
-                                              width: 100,
-                                              height: 100,
-                                              fit: BoxFit.fitHeight,
-                                            ),
-                                          )
+                                      child: Image.file(
+                                        _image!.absolute,
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                                    )
                                         : Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white60,
-                                              border: Border.all(width: 3),
-                                            ),
-                                            child: Icon(
-                                              Icons.camera_alt,
-                                              color: Constants.primarygreen,
-                                            ),
-                                          ),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white60,
+                                        border: Border.all(width: 3),
+                                      ),
+                                      child: Icon(
+                                        Icons.camera_alt,
+                                        color: Constants.primarygreen,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -985,7 +985,7 @@ class _UniformScreenState extends State<UniformScreen> {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                   builder: (BuildContext context) => OrderScreen()),
-              (Route<dynamic> route) => false);
+                  (Route<dynamic> route) => false);
         } catch (e) {
           print(e.toString() + "erroorrrrr");
         }
@@ -1108,7 +1108,7 @@ class _UniformScreenState extends State<UniformScreen> {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                     builder: (BuildContext context) => OrderScreen()),
-                (Route<dynamic> route) => false);
+                    (Route<dynamic> route) => false);
           });
         }
       } catch (e) {
@@ -1116,7 +1116,7 @@ class _UniformScreenState extends State<UniformScreen> {
         toastMessage("Order not Genrated");
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => OrderScreen()),
-            (Route<dynamic> route) => false);
+                (Route<dynamic> route) => false);
       }
     }
   }
@@ -1127,7 +1127,7 @@ class _UniformScreenState extends State<UniformScreen> {
     try {
       int date = DateTime.now().microsecondsSinceEpoch;
       firebase_storage.Reference ref =
-          firebase_storage.FirebaseStorage.instance.ref('/bycoapp$date');
+      firebase_storage.FirebaseStorage.instance.ref('/bycoapp$date');
       UploadTask uploadtask = ref.putFile(_image!.absolute);
       await Future.value(uploadtask);
       var newUrl = await ref.getDownloadURL();
@@ -1204,7 +1204,7 @@ class _UniformScreenState extends State<UniformScreen> {
                     child: Text(
                       "Enter Pin Code",
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ),
                 ],
@@ -1268,7 +1268,7 @@ class _UniformScreenState extends State<UniformScreen> {
                             width: 100,
                             height: 50,
                             decoration: BoxDecoration(
-                                // color: Colors.black,
+                              // color: Colors.black,
                                 color: Constants.gray,
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -1296,7 +1296,7 @@ class _UniformScreenState extends State<UniformScreen> {
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         OrderScreen()),
-                                (Route<dynamic> route) => false);
+                                    (Route<dynamic> route) => false);
                             // dialog3(context);
                             // toastMessage("Loading Please Wait");
                           },
@@ -1304,7 +1304,7 @@ class _UniformScreenState extends State<UniformScreen> {
                             width: 100,
                             height: 50,
                             decoration: BoxDecoration(
-                                // color: Colors.black,
+                              // color: Colors.black,
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -1397,9 +1397,9 @@ class _UniformScreenState extends State<UniformScreen> {
                             checkloadbtn = "upload";
 
                             DeviceInfoPlugin deviceInfoPlugin =
-                                DeviceInfoPlugin();
+                            DeviceInfoPlugin();
                             AndroidDeviceInfo andinfo =
-                                await deviceInfoPlugin.androidInfo;
+                            await deviceInfoPlugin.androidInfo;
                             int date = DateTime.now().microsecondsSinceEpoch;
                             firebase_storage1.Reference ref = firebase_storage1
                                 .FirebaseStorage.instance
@@ -1578,7 +1578,7 @@ class _UniformScreenState extends State<UniformScreen> {
                             width: 100,
                             height: 50,
                             decoration: BoxDecoration(
-                                // color: Colors.black,
+                              // color: Colors.black,
                                 color: Constants.gray,
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -1632,7 +1632,7 @@ class _UniformScreenState extends State<UniformScreen> {
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         OrderScreen()),
-                                (Route<dynamic> route) => false);
+                                    (Route<dynamic> route) => false);
                             // dialog3(context);
                             // toastMessage("Loading Please Wait");
                           },
@@ -1640,7 +1640,7 @@ class _UniformScreenState extends State<UniformScreen> {
                             width: 100,
                             height: 50,
                             decoration: BoxDecoration(
-                                // color: Colors.black,
+                              // color: Colors.black,
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),

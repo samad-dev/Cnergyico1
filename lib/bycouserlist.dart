@@ -10,6 +10,8 @@ import 'package:cnergyico/OrderPage.dart';
 import 'package:cnergyico/Uniform.dart';
 import 'package:cnergyico/addusers.dart';
 import 'package:cnergyico/utils/constants.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -67,7 +69,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
   String dropdownValue3 = "NA";
   int _selectedIndex = 2;
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Business',
@@ -99,22 +101,30 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
     return "Sucess";
   }
   bool post_clicked = false;
-  Future<void> request() async {
+  Future<void> request(String orderid) async {
+    print(dropdownValue3);
+    print(amountController.text.toString());
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    // print(
-    //     'http://151.106.17.246:8080/byco/api/uniorder.php?qty1=${smallcontroller.text.toString()}&qty2=${mcontroller.text.toString()}&qty3=${lcontroller.text.toString()}&qty4=${xlcontroller.text.toString()}&userid=${sharedPreferences.get("id").toString()}&type_id=${_mySelection3}');
-    // var request = http.Request(
-    //     'GET',
-    //     Uri.parse(
-    //         'http://151.106.17.246:8080/byco/api/uniorder.php?qty1=${smallcontroller.text.toString()}&qty2=${mcontroller.text.toString()}&qty3=${lcontroller.text.toString()}&qty4=${xlcontroller.text.toString()}&userid=${sharedPreferences.get("id").toString()}&type_id=${_mySelection3}'));
-    //
-    // http.StreamedResponse response = await request.send();
-    //
-    // if (response.statusCode == 200) {
-    //   Fluttertoast.showToast(msg: "Order Placed Successfully");
-    // } else {
-    //   Fluttertoast.showToast(msg: response.statusCode.toString());
-    // }
+    int date = DateTime.now().microsecondsSinceEpoch;
+    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance.ref('/bycopay$date');
+    UploadTask uploadtask = ref.putFile(_image!.absolute);
+    await Future.value(uploadtask);
+    var newUrl = await ref.getDownloadURL();
+    print(newUrl.toString());
+    print(
+        'http://151.106.17.246:8080/byco/api/update_order_image_account.php?image=${newUrl.toString()}&amount=${amountController.text.toString()}&orderid=${orderid}');
+    var request = http.Request(
+        'GET',
+        Uri.parse(
+            'http://151.106.17.246:8080/byco/api/update_order_image_account.php?image=${newUrl.toString()}&bank=${dropdownValue3}&amount=${amountController.text.toString()}&orderid=${orderid}'));
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(msg: "Order Updated Successfully");
+    } else {
+      Fluttertoast.showToast(msg: response.statusCode.toString());
+    }
   }
 
 
@@ -241,15 +251,15 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                         context,
                         MaterialPageRoute<void>(
                           builder: (BuildContext context) =>
-                              const UniformScreen(),
+                          const UniformScreen(),
                         ),
                       );
                     },
                     child: Container(
                         child: Icon(
-                      Icons.add,
-                      color: Constants.primaryorrange,
-                    ))),
+                          Icons.add,
+                          color: Constants.primaryorrange,
+                        ))),
                 // GestureDetector(onTap: (){ upload(username.text, password.text, cnic.text, phone.text); }, child: Container(margin: EdgeInsets.only(left: 20), child: Icon(Icons.delete, color: Constants.primaryColor,)))
               ],
             ),
@@ -302,319 +312,333 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
       child: SafeArea(
         child: _loadedPhotos.length == 0
             ? Center(
-                child: ElevatedButton(
-                  child: Text('Load Data...'),
-                  onPressed: _fetchData,
-                ),
-              )
-            // The ListView that displays photos
+          child: ElevatedButton(
+            child: Text('Load Data...'),
+            onPressed: _fetchData,
+          ),
+        )
+        // The ListView that displays photos
             : ListView.builder(
-                itemCount: _loadedPhotos.length,
-                itemBuilder: (BuildContext ctx, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Container(
-                      // margin: EdgeInsets.only(top: 10),
-                      decoration: BoxDecoration(
-                        // color: Colors.black,
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: ListTile(
-                          // leading: Image.network(
-                          //   _loadedPhotos[index]["thumbnailUrl"],
-                          //   width: 150,
-                          //   fit: BoxFit.cover,
-                          // ),
-                          title: Container(
-                              width: double.infinity,
-                              alignment: Alignment.center,
-                              child: Text("Unifrom Orders",
+          itemCount: _loadedPhotos.length,
+          itemBuilder: (BuildContext ctx, index) {
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: Container(
+                // margin: EdgeInsets.only(top: 10),
+                decoration: BoxDecoration(
+                  // color: Colors.black,
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: ListTile(
+                    // leading: Image.network(
+                    //   _loadedPhotos[index]["thumbnailUrl"],
+                    //   width: 150,
+                    //   fit: BoxFit.cover,
+                    // ),
+                    title: Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        child: Text("Unifrom Orders",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold))),
+                    subtitle: Column(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Uniform Type: ',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text(
+                              '${_loadedPhotos[index]["type"]}',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Small Quantity: ',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text('${_loadedPhotos[index]["size_1"]}',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Medium Quantity: ',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text('${_loadedPhotos[index]["size_2"]}',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Large Quantity: ',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text('${_loadedPhotos[index]["size_3"]}',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('X-Large Quantity: ',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text('${_loadedPhotos[index]["size_4"]}',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Status: ',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            if(_loadedPhotos[index]["status"]=='0')
+                              Text('Pending',
                                   style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold))),
-                          subtitle: Column(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                            if(_loadedPhotos[index]["status"]=='1')
+                              Text('Completed',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                            if(_loadedPhotos[index]["status"]=='2')
+                              Text('Cancelled',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold))
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Total Amount: ',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text('${_loadedPhotos[index]["total_amount"]}',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Select Bank",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+
+                        SizedBox(
+                          height: 5,
+                        ),
+
+                        Container(
+                          width: double.infinity,
+                          child: DropdownButton<String>(
+                            value: dropdownValue3,
+                            // value: "HBL Bank Ltd.",
+                            hint: Text('Select bank'),
+                            // icon: const Icon(Icons.arrow_downward),
+                            // iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(
+                                color: Colors.black54, fontSize: 18),
+                            // underline: Container(
+                            //   height: 2,
+                            //   color: Colors.deepPurpleAccent,
+                            // ),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                dropdownValue3 = newValue!;
+                              });
+                            },
+                            // value: dropdownValue3.toString(),
+                            items: <String>[
+                              'NA',
+                              'HBL Bank Ltd.',
+                              'Bank AL Habib',
+                              'MCB',
+                              'Silk Bank',
+                              'Askari Bank',
+                              'Bank Alfalah Limited',
+                              'National Bank',
+                              'Meezan Bank',
+                              'Faysal Bank (Islamic)',
+                              'Other'
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+
+                        SizedBox(
+                          height: 5,
+                        ),
+
+
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Enter Amount",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Center(
+                          child: TextField(
+                            inputFormatters: [
+                              CurrencyTextInputFormatter(
+                                locale: 'ko',
+                                decimalDigits: 0,
+                                symbol: ' ',
+                              )
+                            ],
+                            controller: amountController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                border: UnderlineInputBorder(),
+                                labelText: 'Amount',
+                                hintText: 'Enter Amount',
+                                labelStyle: TextStyle(
+                                    fontSize: 18, letterSpacing: 1)),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 05,
+                        ),
+
+                        InkWell(
+                          onTap: () {
+                            dialog(context);
+                          },
+                          child: Column(
                             children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Uniform Type: ',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                  Text(
-                                    '${_loadedPhotos[index]["type"]}',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Small Quantity: ',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                  Text('${_loadedPhotos[index]["size_1"]}',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Medium Quantity: ',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                  Text('${_loadedPhotos[index]["size_2"]}',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Large Quantity: ',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                  Text('${_loadedPhotos[index]["size_3"]}',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('X-Large Quantity: ',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                  Text('${_loadedPhotos[index]["size_4"]}',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Status: ',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                  if(_loadedPhotos[index]["status"]=='0')
-                                  Text('Pending',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                  if(_loadedPhotos[index]["status"]=='1')
-                                    Text('Completed',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold)),
-                                  if(_loadedPhotos[index]["status"]=='2')
-                                    Text('Cancelled',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold))
-                                ],
-                              ),
-                              Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Select Bank",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-
-                              SizedBox(
-                                height: 5,
-                              ),
-
-                              Container(
-                                width: double.infinity,
-                                child: DropdownButton<String>(
-                                  value: dropdownValue3,
-                                  // value: "HBL Bank Ltd.",
-                                  hint: Text('Select bank'),
-                                  // icon: const Icon(Icons.arrow_downward),
-                                  // iconSize: 24,
-                                  elevation: 16,
-                                  style: const TextStyle(
-                                      color: Colors.black54, fontSize: 18),
-                                  // underline: Container(
-                                  //   height: 2,
-                                  //   color: Colors.deepPurpleAccent,
-                                  // ),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      dropdownValue3 = newValue!;
-                                    });
-                                  },
-                                  // value: dropdownValue3.toString(),
-                                  items: <String>[
-                                    'NA',
-                                    'HBL Bank Ltd.',
-                                    'Bank AL Habib',
-                                    'MCB',
-                                    'Silk Bank',
-                                    'Askari Bank',
-                                    'Bank Alfalah Limited',
-                                    'National Bank',
-                                    'Meezan Bank',
-                                    'Faysal Bank (Islamic)',
-                                    'Other'
-                                  ].map<DropdownMenuItem<String>>((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-
-                              SizedBox(
-                                height: 5,
-                              ),
-
-
-                              Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Enter Amount",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-
-                              SizedBox(
-                                height: 5,
-                              ),
+                              // Icon(Icons.camera_alt),
                               Center(
-                                child: TextField(
-                                  inputFormatters: [
-                                    CurrencyTextInputFormatter(
-                                      locale: 'ko',
-                                      decimalDigits: 0,
-                                      symbol: ' ',
-                                    )
-                                  ],
-                                  controller: amountController,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                      border: UnderlineInputBorder(),
-                                      labelText: 'Amount',
-                                      hintText: 'Enter Amount',
-                                      labelStyle: TextStyle(
-                                          fontSize: 18, letterSpacing: 1)),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 05,
-                              ),
-
-                              InkWell(
-                                onTap: () {
-                                  dialog(context);
-                                },
-                                child: Column(
-                                  children: [
-                                    // Icon(Icons.camera_alt),
-                                    Center(
-                                      child: Container(
-                                        // height: MediaQuery.of(context).size.height * .2,
-                                        // width: MediaQuery.of(context).size.width * 1,
-                                        height: 150,
-                                        width: double.infinity,
-                                        child: _image != null
-                                            ? ClipRect(
-                                          child: Image.file(
-                                            _image!.absolute,
-                                            width: 100,
-                                            height: 100,
-                                            fit: BoxFit.fitHeight,
-                                          ),
-                                        )
-                                            : Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white60,
-                                            border: Border.all(width: 3),
-                                          ),
-                                          child: Icon(
-                                            Icons.camera_alt,
-                                            color: Constants.primarygreen,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 05,
-                              ),
-
-                              GestureDetector(
-                                onTap: () {
-                                  request();
-                                },
                                 child: Container(
-                                  alignment: Alignment.center,
+                                  // height: MediaQuery.of(context).size.height * .2,
+                                  // width: MediaQuery.of(context).size.width * 1,
+                                  height: 150,
                                   width: double.infinity,
-                                  height: 50,
-                                  child: Text(
-                                    "Place Order",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Constants.primaryorrange,
-                                      fontSize: 20,
-                                      letterSpacing: 5,
+                                  child: _image != null
+                                      ? ClipRect(
+                                    child: Image.file(
+                                      _image!.absolute,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.fitHeight,
                                     ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Constants.primarygreen,
+                                  )
+                                      : Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white60,
+                                      border: Border.all(width: 3),
+                                    ),
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      color: Constants.primarygreen,
+                                    ),
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
-
                             ],
                           ),
                         ),
-                      ),
+                        SizedBox(
+                          height: 05,
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            request(_loadedPhotos[index]["id"]);
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: double.infinity,
+                            height: 50,
+                            child: Text(
+                              "Place Order",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Constants.primaryorrange,
+                                fontSize: 20,
+                                letterSpacing: 5,
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Constants.primarygreen,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+
+                      ],
                     ),
-                  );
-                },
+                  ),
+                ),
               ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -626,6 +650,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+
       } else {
         print("no image selected");
       }
