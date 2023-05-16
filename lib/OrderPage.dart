@@ -811,7 +811,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                       decoration: InputDecoration(
                                           border: UnderlineInputBorder(),
                                           labelText: 'Amount',
-                                          hintText: 'Enter Amount',
+                                          hintText: 'Enter Amounts',
                                           labelStyle: TextStyle(
                                               fontSize: 18, letterSpacing: 1)),
                                     ),
