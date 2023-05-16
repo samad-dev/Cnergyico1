@@ -3,6 +3,7 @@ import 'dart:convert';
 // import 'package:flutter_app_byco/OrderPage.dart';
 import 'package:cnergyico/DashboardPage.dart';
 import 'package:cnergyico/OrderPage.dart';
+import 'package:cnergyico/home.dart';
 import 'package:cnergyico/utils/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -48,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if(prefs.get("code") != null){
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (BuildContext context) => OrderScreen()),
+              builder: (BuildContext context) => HomeScreen()),
               (Route<dynamic>route) => false);
     }
   }
@@ -573,7 +574,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // }
 
 
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => OrderScreen()), (Route<dynamic>route) => false);
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => HomeScreen()), (Route<dynamic>route) => false);
         Fluttertoast.showToast(
             msg: "Login Successfully",
             toastLength: Toast.LENGTH_LONG,
