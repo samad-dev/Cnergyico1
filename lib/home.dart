@@ -28,20 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
         // color: Colors.black.withOpacity(0.6),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/Images/bycolg.jpeg"),
+            image: AssetImage("assets/Images/bycolg.png"),
             fit: BoxFit.cover,
           ),
         ),
         child: Column(
           children: [
-            Positioned.fill(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                child: Container(
-                  color: Colors.black.withOpacity(0.5),
-                ),
-              ),
-            ),
+
             Container(
               padding: const EdgeInsets.only(top: 60, left: 16, right: 16),
               child: Column(
@@ -61,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               builder: (context) => OrderScreen()));
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                               bottom:
                                   BorderSide(width: 1.0, color: Colors.white),
@@ -73,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Center(
                             child: Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 50,
                                 ),
                                 Icon(
@@ -81,9 +74,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: Constants.primarygreen,
                                   size: 60,
                                 ),
-                                Text(
-                                  'Order',
-                                  style: const TextStyle(
+                             const Text(
+                                  'Fuel Order',
+                                  style:  TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
@@ -99,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               builder: (context) => UniformScreen()));
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                               bottom:
                                   BorderSide(width: 1.0, color: Colors.white),
@@ -110,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Center(
                             child: Column(
                               children: [
-                                SizedBox(
+                             const SizedBox(
                                   height: 50,
                                 ),
                                 Icon(
@@ -118,9 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: Constants.primarygreen,
                                   size: 60,
                                 ),
-                                Text(
+                               const Text(
                                   'Uniform',
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
@@ -136,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               MaterialPageRoute(builder: (context) => Lube()));
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                               top: BorderSide(width: 1.0, color: Colors.white),
                               right:
@@ -147,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Center(
                             child: Column(
                               children: [
-                                SizedBox(
+                                const  SizedBox(
                                   height: 50,
                                 ),
                                 Icon(
@@ -155,9 +148,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: Constants.primarygreen,
                                   size: 60,
                                 ),
-                                Text(
+                                const Text(
                                   'Complaint',
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
@@ -173,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               builder: (context) => Complaint()));
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration:const BoxDecoration(
                             border: Border(
                               top: BorderSide(width: 1.0, color: Colors.white),
                               left: BorderSide(width: 1.0, color: Colors.white),
@@ -183,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Center(
                             child: Column(
                               children: [
-                                SizedBox(
+                                const  SizedBox(
                                   height: 50,
                                 ),
                                 Icon(
@@ -191,9 +184,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: Constants.primarygreen,
                                   size: 60,
                                 ),
-                                Text(
+                                const Text(
                                   'Lube',
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
@@ -208,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            const   SizedBox(
               height: 40,
             ),
             Container(
@@ -225,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                           Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: Text("Current Fuel Rate",style: TextStyle(fontSize: 19,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Colors.black45),),
+                            child: Text("Retail Price ",style: TextStyle(fontSize: 19,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Colors.black45),),
                           ),
 
                         ],
@@ -245,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      Divider(
+                      const Divider(
                         color: Colors.black,
                       ),
                       Row(

@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:cnergyico/Complaint.dart';
 import 'package:cnergyico/OrderPage.dart';
 import 'package:cnergyico/Price_List.dart';
 import 'package:connectivity/connectivity.dart';
@@ -279,17 +280,19 @@ class _ComplaintScreenState extends State<Complaint> {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => const OrderScreen(),
+            builder: (BuildContext context) => const Complaint(),
           ),
         );
-      } else if (index == 1) {
-        Navigator.pushReplacement<void, void>(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => const HistoryScreen(),
-          ),
-        );
-      } else if (index == 3) {
+      }
+      // else if (index == 1) {
+      //   Navigator.pushReplacement<void, void>(
+      //     context,
+      //     MaterialPageRoute<void>(
+      //       builder: (BuildContext context) => const HistoryScreen(),
+      //     ),
+      //   );
+      // }
+      else if (index == 3) {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
@@ -629,40 +632,42 @@ class _ComplaintScreenState extends State<Complaint> {
           //   label: 'Trips',
           // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_border,color: Colors.black45,),
-            label: 'Order',
+            icon: Icon(Icons.bookmark_border,
+              color: Color(0xFFFF8F00),),
+            label: 'Lube',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.history,
               color: Colors.black45,
             ),
-            label: 'History',
+            label: 'List',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.accessibility_new_outlined,
-              color: Colors.black45,
-            ),
-            label: 'UniForm',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.price_change_outlined,
-              color: Colors.black45,
-            ),
-            label: 'Price List',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-
-              Icons.access_time_outlined,
-              color: Color(0xFFFF8F00),
-            ),
-            label: 'Lube',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Icons.accessibility_new_outlined,
+          //     color: Colors.black45,
+          //   ),
+          //   label: 'UniForm',
+          // ),
+          //
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //
+          //     Icons.access_time_outlined,
+          //     color: Color(0xFFFF8F00),
+          //   ),
+          //   label: 'Lube',
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Icons.price_change_outlined,
+          //     color: Colors.black45,
+          //   ),
+          //   label: ' List',
+          // ),
         ],
-        currentIndex: 4,
+        currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),

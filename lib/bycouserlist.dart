@@ -67,7 +67,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
   String dropdownValue1 = "Small";
   String dropdownValue2 = "Refinery";
   String dropdownValue3 = "NA";
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -155,7 +155,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => const OrderScreen(),
+            builder: (BuildContext context) => const UniformScreen(),
           ),
         );
       } else if (index == 1) {
@@ -167,7 +167,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => const HistoryScreen(),
+            builder: (BuildContext context) => const BycoUserScreens(),
           ),
         );
       } else if (index == 2) {
@@ -243,26 +243,26 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                 ),
               ),
             ),
-            Row(
-              children: [
-                GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement<void, void>(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) =>
-                          const UniformScreen(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                        child: Icon(
-                          Icons.add,
-                          color: Constants.primaryorrange,
-                        ))),
-                // GestureDetector(onTap: (){ upload(username.text, password.text, cnic.text, phone.text); }, child: Container(margin: EdgeInsets.only(left: 20), child: Icon(Icons.delete, color: Constants.primaryColor,)))
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     GestureDetector(
+            //         onTap: () {
+            //           Navigator.pushReplacement<void, void>(
+            //             context,
+            //             MaterialPageRoute<void>(
+            //               builder: (BuildContext context) =>
+            //               const UniformScreen(),
+            //             ),
+            //           );
+            //         },
+            //         child: Container(
+            //             child: Icon(
+            //               Icons.add,
+            //               color: Constants.primaryorrange,
+            //             ))),
+            //     // GestureDetector(onTap: (){ upload(username.text, password.text, cnic.text, phone.text); }, child: Container(margin: EdgeInsets.only(left: 20), child: Icon(Icons.delete, color: Constants.primaryColor,)))
+            //   ],
+            // ),
             GestureDetector(
               onTap: () {
                 signout();
@@ -287,17 +287,17 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
           //   icon: Icon(Icons.home,),
           //   label: 'Trips',
           // ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_border),
-            label: 'Order',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.bookmark_border),
+          //   label: 'Order',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
-            label: 'History',
+            label: 'Uniform',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.accessibility_new_outlined,color: Colors.amber,),
-            label: 'UniForm',
+            label: 'Invoice',
           ),
         ],
         currentIndex: _selectedIndex,
@@ -349,7 +349,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                     title: Container(
                         width: double.infinity,
                         alignment: Alignment.center,
-                        child: Text("Unifrom Orders",
+                        child: Text(" Details",
                             style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold))),

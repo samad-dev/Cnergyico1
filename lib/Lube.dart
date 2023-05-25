@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:cnergyico/Lube.dart';
 import 'package:cnergyico/OrderPage.dart';
 import 'package:cnergyico/Price_List.dart';
 import 'package:connectivity/connectivity.dart';
@@ -218,7 +219,7 @@ class _LubeScreenState extends State<Lube> {
         MaterialPageRoute(builder: (BuildContext ctx) => LoginScreen()));
   }
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -279,21 +280,23 @@ class _LubeScreenState extends State<Lube> {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => const OrderScreen(),
+            builder: (BuildContext context) => const Lube(),
           ),
         );
-      } else if (index == 1) {
+      }
+      // else if (index == 1) {
+      //   Navigator.pushReplacement<void, void>(
+      //     context,
+      //     MaterialPageRoute<void>(
+      //       builder: (BuildContext context) => const HistoryScreen(),
+      //     ),
+      //   );
+      // }
+      else if (index == 3) {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => const HistoryScreen(),
-          ),
-        );
-      } else if (index == 3) {
-        Navigator.pushReplacement<void, void>(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => const PriceList(),
+            builder: (BuildContext context) => const Lube(),
           ),
         );
       }
@@ -677,41 +680,44 @@ class _LubeScreenState extends State<Lube> {
           //   label: 'Trips',
           // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_border,color: Colors.black45,),
-            label: 'Order',
+            icon: Icon(Icons.message,
+              color: Color(0xFFFF8F00),),
+            label: 'Complaint',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.history,
-              color: Colors.black45,
-            ),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.accessibility_new_outlined,
-              color: Colors.black45,
-            ),
-            label: 'UniForm',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.price_change_outlined,
-              color: Colors.black45,
-            ),
-            label: 'Price List',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Icons.history,
+          //     color: Colors.black45,
+          //   ),
+          //   label: 'History',
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Icons.accessibility_new_outlined,
+          //     color: Colors.black45,
+          //   ),
+          //   label: 'UniForm',
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Icons.message,
+          //     color: Colors.black45,
+          //   ),
+          //   label: 'Complaint',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(
 
-              Icons.access_time_outlined,
-              color: Color(0xFFFF8F00),
+              Icons.price_change,
+              color:Colors.black45,
             ),
-            label: 'Lube',
+            label: 'Complaint List',
           ),
         ],
-        currentIndex: 4,
+        currentIndex: 0,
         selectedItemColor: Colors.amber[800],
+        // currentIndex: _selectedIndex,
+
         onTap: _onItemTapped,
       ),
     );

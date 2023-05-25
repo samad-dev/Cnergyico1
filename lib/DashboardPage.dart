@@ -120,17 +120,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           children: [
 
                             Container(
-                                width: 80,
+                                width: 100,
                                 height: 80,
                                 decoration: new BoxDecoration(
                                     image: new DecorationImage(
-                                      image: new AssetImage("assets/Images/Cnergyicoicon.png"),
+                                      image: new AssetImage("assets/Images/byco-logo.png"),
                                       fit: BoxFit.fill,
                                     )
                                 )
                             ),
 
-                            SizedBox(width: 10,),
+                            // SizedBox(width: 2,),
 
                             Text(
                               "Conecct!",

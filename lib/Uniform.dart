@@ -276,10 +276,10 @@ class _UniformScreenState extends State<UniformScreen> {
         MaterialPageRoute(builder: (BuildContext ctx) => LoginScreen()));
   }
 
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
 
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     // Text(
     //   'Index 0: Home',
@@ -311,7 +311,7 @@ class _UniformScreenState extends State<UniformScreen> {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => const BycoUserScreens(),
+            builder: (BuildContext context) => const HistoryScreen(),
           ),
         );
       } else if (index == 0) {
@@ -323,7 +323,7 @@ class _UniformScreenState extends State<UniformScreen> {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => const OrderScreen(),
+            builder: (BuildContext context) => const BycoUserScreens(),
           ),
         );
       } else if (index == 1) {
@@ -335,7 +335,7 @@ class _UniformScreenState extends State<UniformScreen> {
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => const HistoryScreen(),
+            builder: (BuildContext context) => const BycoUserScreens(),
           ),
         );
       }
@@ -524,10 +524,10 @@ class _UniformScreenState extends State<UniformScreen> {
 
                           Container(
                             alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Provide Uniform Quantity",
-                              style: TextStyle(fontSize: 18),
-                            ),
+                            // child: Text(
+                            //   "Provide Uniform Quantity",
+                            //   style: TextStyle(fontSize: 18),
+                            // ),
                           ),
 
                           SizedBox(
@@ -560,7 +560,7 @@ class _UniformScreenState extends State<UniformScreen> {
                             ),*/
                           ),
                           SizedBox(
-                            height: 5,
+                            height: 25,
                           ),
 
                           Container(
@@ -574,7 +574,7 @@ class _UniformScreenState extends State<UniformScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 5,
+                            height: 25,
                           ),
                           Container(
                             width: double.infinity,
@@ -587,7 +587,7 @@ class _UniformScreenState extends State<UniformScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 5,
+                            height: 25,
                           ),
                           Container(
                             width: double.infinity,
@@ -661,153 +661,304 @@ class _UniformScreenState extends State<UniformScreen> {
                               ],
                             ),
                           ),
-                          Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "Bank Information",
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    color: Constants.primaryorrange),
-                              )),
+                          // Container(
+                          //     alignment: Alignment.centerLeft,
+                          //     child: Text(
+                          //       "Bank Information",
+                          //       style: TextStyle(
+                          //           fontSize: 25,
+                          //           color: Constants.primaryorrange),
+                          //     )),
+                          //
+                          // SizedBox(
+                          //   height: 30,
+                          // ),
 
-                          SizedBox(
-                            height: 30,
-                          ),
-
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Select Bank",
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-
-                          SizedBox(
-                            height: 5,
-                          ),
+                          // Container(
+                          //   alignment: Alignment.centerLeft,
+                          //   child: Text(
+                          //     "Select Bank",
+                          //     style: TextStyle(fontSize: 18),
+                          //   ),
+                          // ),
+                          //
+                          // SizedBox(
+                          //   height: 5,
+                          // ),
+                          //
+                          // Container(
+                          //   width: double.infinity,
+                          //   child: DropdownButton<String>(
+                          //     value: dropdownValue3,
+                          //     // value: "HBL Bank Ltd.",
+                          //     hint: Text('Select bank'),
+                          //     // icon: const Icon(Icons.arrow_downward),
+                          //     // iconSize: 24,
+                          //     elevation: 16,
+                          //     style: const TextStyle(
+                          //         color: Colors.black54, fontSize: 18),
+                          //     // underline: Container(
+                          //     //   height: 2,
+                          //     //   color: Colors.deepPurpleAccent,
+                          //     // ),
+                          //     onChanged: (String? newValue) {
+                          //       setState(() {
+                          //         dropdownValue3 = newValue!;
+                          //       });
+                          //     },
+                          //     // value: dropdownValue3.toString(),
+                          //     items: <String>[
+                          //       'NA',
+                          //       'HBL Bank Ltd.',
+                          //       'Bank AL Habib',
+                          //       'MCB',
+                          //       'Silk Bank',
+                          //       'Askari Bank',
+                          //       'Bank Alfalah Limited',
+                          //       'National Bank',
+                          //       'Meezan Bank',
+                          //       'Faysal Bank (Islamic)',
+                          //       'Other'
+                          //     ].map<DropdownMenuItem<String>>((String value) {
+                          //       return DropdownMenuItem<String>(
+                          //         value: value,
+                          //         child: Text(value),
+                          //       );
+                          //     }).toList(),
+                          //   ),
+                          // ),
+                          //
+                          // SizedBox(
+                          //   height: 5,
+                          // ),
+                          //
+                          //
+                          // Container(
+                          //   alignment: Alignment.centerLeft,
+                          //   child: Text(
+                          //     "Enter Amount",
+                          //     style: TextStyle(fontSize: 18),
+                          //   ),
+                          // ),
+                          //
+                          // SizedBox(
+                          //   height: 5,
+                          // ),
+                          // Center(
+                          //   child: TextField(
+                          //     inputFormatters: [
+                          //       CurrencyTextInputFormatter(
+                          //         locale: 'ko',
+                          //         decimalDigits: 0,
+                          //         symbol: ' ',
+                          //       )
+                          //     ],
+                          //     controller: amountController,
+                          //     keyboardType: TextInputType.number,
+                          //     decoration: InputDecoration(
+                          //         border: UnderlineInputBorder(),
+                          //         labelText: 'Amount',
+                          //         hintText: 'Enter Amount',
+                          //         labelStyle: TextStyle(
+                          //             fontSize: 18, letterSpacing: 1)),
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: 05,
+                          // ),
+                          //
+                          // InkWell(
+                          //   onTap: () {
+                          //     dialog(context);
+                          //   },
+                          //   child: Column(
+                          //     children: [
+                          //       // Icon(Icons.camera_alt),
+                          //       Center(
+                          //         child: Container(
+                          //           // height: MediaQuery.of(context).size.height * .2,
+                          //           // width: MediaQuery.of(context).size.width * 1,
+                          //           height: 150,
+                          //           width: double.infinity,
+                          //           child: _image != null
+                          //               ? ClipRect(
+                          //             child: Image.file(
+                          //               _image!.absolute,
+                          //               width: 100,
+                          //               height: 100,
+                          //               fit: BoxFit.fitHeight,
+                          //             ),
+                          //           )
+                          //               : Container(
+                          //             decoration: BoxDecoration(
+                          //               color: Colors.white60,
+                          //               border: Border.all(width: 3),
+                          //             ),
+                          //             child: Icon(
+                          //               Icons.camera_alt,
+                          //               color: Constants.primarygreen,
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: 05,
+                          // ),
 
                           Container(
                             width: double.infinity,
-                            child: DropdownButton<String>(
-                              value: dropdownValue3,
-                              // value: "HBL Bank Ltd.",
-                              hint: Text('Select bank'),
-                              // icon: const Icon(Icons.arrow_downward),
-                              // iconSize: 24,
-                              elevation: 16,
-                              style: const TextStyle(
-                                  color: Colors.black54, fontSize: 18),
-                              // underline: Container(
-                              //   height: 2,
-                              //   color: Colors.deepPurpleAccent,
-                              // ),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  dropdownValue3 = newValue!;
-                                });
-                              },
-                              // value: dropdownValue3.toString(),
-                              items: <String>[
-                                'NA',
-                                'HBL Bank Ltd.',
-                                'Bank AL Habib',
-                                'MCB',
-                                'Silk Bank',
-                                'Askari Bank',
-                                'Bank Alfalah Limited',
-                                'National Bank',
-                                'Meezan Bank',
-                                'Faysal Bank (Islamic)',
-                                'Other'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-                          ),
+                            height: MediaQuery.of(context).size.height/2.0,
+                            child: Card(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: const [
 
-                          SizedBox(
-                            height: 5,
-                          ),
-
-
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Enter Amount",
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Center(
-                            child: TextField(
-                              inputFormatters: [
-                                CurrencyTextInputFormatter(
-                                  locale: 'ko',
-                                  decimalDigits: 0,
-                                  symbol: ' ',
-                                )
-                              ],
-                              controller: amountController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  border: UnderlineInputBorder(),
-                                  labelText: 'Amount',
-                                  hintText: 'Enter Amount',
-                                  labelStyle: TextStyle(
-                                      fontSize: 18, letterSpacing: 1)),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 05,
-                          ),
-
-                          InkWell(
-                            onTap: () {
-                              dialog(context);
-                            },
-                            child: Column(
-                              children: [
-                                // Icon(Icons.camera_alt),
-                                Center(
-                                  child: Container(
-                                    // height: MediaQuery.of(context).size.height * .2,
-                                    // width: MediaQuery.of(context).size.width * 1,
-                                    height: 150,
-                                    width: double.infinity,
-                                    child: _image != null
-                                        ? ClipRect(
-                                      child: Image.file(
-                                        _image!.absolute,
-                                        width: 100,
-                                        height: 100,
-                                        fit: BoxFit.fitHeight,
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text(" Vendor Details ",style: TextStyle(fontSize: 19,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Colors.black45),),
                                       ),
-                                    )
-                                        : Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white60,
-                                        border: Border.all(width: 3),
-                                      ),
-                                      child: Icon(
-                                        Icons.camera_alt,
-                                        color: Constants.primarygreen,
-                                      ),
-                                    ),
+
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: const [
+
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("Supplier Name",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                      SizedBox(width: 80,),
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("M/S Rehan Traders",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                    ],
+                                  ),
+                                  const Divider(
+                                    color: Colors.black,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: const [
+
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("Cell No.",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                      SizedBox(width: 130,),
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("0322-6217125",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                    ],
+                                  ),
+                                  const Divider(
+                                    color: Colors.black,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: const [
+
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("PTCL No.",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                      SizedBox(width: 5,),
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("041-8717125/041-2422925/041-8717985",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                    ],
+                                  ),
+                                  const Divider(
+                                    color: Colors.black,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: const [
+
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("Email ID",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                      SizedBox(width: 80,),
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("info@rehantrader.com",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                    ],
+                                  ),
+
+                                  const Divider(
+                                    color: Colors.black,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: const [
+
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("Bank A/c No. ",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                      SizedBox(width: 80,),
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("22417900191303",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                    ],
+                                  ),
+
+                                  const Divider(
+                                    color: Colors.black,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: const [
+
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("Bank Name ",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                      SizedBox(width: 50,),
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("Habib Bank Limited Pakistan",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                    ],
+                                  ),
+
+                                  const Divider(
+                                    color: Colors.black,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: const [
+
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("Bank Title ",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                      SizedBox(width: 80,),
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text("Rehan Traders",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w700,fontStyle: FontStyle.italic,color: Color.fromRGBO(18, 99, 81, 1.0)),),
+                                      ),
+                                    ],
+                                  ),
+
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(
-                            height: 05,
+                            height: 35,
                           ),
-
                           GestureDetector(
                             onTap: () {
                               request();
@@ -817,7 +968,7 @@ class _UniformScreenState extends State<UniformScreen> {
                               width: double.infinity,
                               height: 50,
                               child: Text(
-                                "Place Order",
+                                "Confirm Order",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Constants.primaryorrange,
@@ -847,20 +998,13 @@ class _UniformScreenState extends State<UniformScreen> {
           //   icon: Icon(Icons.home),
           //   label: 'Trips',
           // ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.bookmark_border,
-              color: Colors.black45,
-            ),
-            label: 'Order',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.history,
-              color: Colors.black45,
-            ),
-            label: 'History',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Icons.bookmark_border,
+          //     color: Colors.black45,
+          //   ),
+          //   label: 'Order',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.accessibility_new_outlined,
@@ -868,6 +1012,15 @@ class _UniformScreenState extends State<UniformScreen> {
             ),
             label: 'UniForm',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.history,
+              color: Colors.black45,
+            ),
+            label: 'Invoice',
+
+          ),
+
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
@@ -985,7 +1138,7 @@ class _UniformScreenState extends State<UniformScreen> {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                   builder: (BuildContext context) => OrderScreen()),
-                  (Route<dynamic> route) => false);
+              (Route<dynamic> route) => false);
         } catch (e) {
           print(e.toString() + "erroorrrrr");
         }
@@ -1108,7 +1261,7 @@ class _UniformScreenState extends State<UniformScreen> {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                     builder: (BuildContext context) => OrderScreen()),
-                    (Route<dynamic> route) => false);
+                (Route<dynamic> route) => false);
           });
         }
       } catch (e) {
@@ -1116,7 +1269,7 @@ class _UniformScreenState extends State<UniformScreen> {
         toastMessage("Order not Genrated");
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => OrderScreen()),
-                (Route<dynamic> route) => false);
+            (Route<dynamic> route) => false);
       }
     }
   }
@@ -1127,7 +1280,7 @@ class _UniformScreenState extends State<UniformScreen> {
     try {
       int date = DateTime.now().microsecondsSinceEpoch;
       firebase_storage.Reference ref =
-      firebase_storage.FirebaseStorage.instance.ref('/bycoapp$date');
+          firebase_storage.FirebaseStorage.instance.ref('/bycoapp$date');
       UploadTask uploadtask = ref.putFile(_image!.absolute);
       await Future.value(uploadtask);
       var newUrl = await ref.getDownloadURL();
@@ -1204,7 +1357,7 @@ class _UniformScreenState extends State<UniformScreen> {
                     child: Text(
                       "Enter Pin Code",
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ),
                 ],
@@ -1268,7 +1421,7 @@ class _UniformScreenState extends State<UniformScreen> {
                             width: 100,
                             height: 50,
                             decoration: BoxDecoration(
-                              // color: Colors.black,
+                                // color: Colors.black,
                                 color: Constants.gray,
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -1296,7 +1449,7 @@ class _UniformScreenState extends State<UniformScreen> {
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         OrderScreen()),
-                                    (Route<dynamic> route) => false);
+                                (Route<dynamic> route) => false);
                             // dialog3(context);
                             // toastMessage("Loading Please Wait");
                           },
@@ -1304,7 +1457,7 @@ class _UniformScreenState extends State<UniformScreen> {
                             width: 100,
                             height: 50,
                             decoration: BoxDecoration(
-                              // color: Colors.black,
+                                // color: Colors.black,
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -1397,9 +1550,9 @@ class _UniformScreenState extends State<UniformScreen> {
                             checkloadbtn = "upload";
 
                             DeviceInfoPlugin deviceInfoPlugin =
-                            DeviceInfoPlugin();
+                                DeviceInfoPlugin();
                             AndroidDeviceInfo andinfo =
-                            await deviceInfoPlugin.androidInfo;
+                                await deviceInfoPlugin.androidInfo;
                             int date = DateTime.now().microsecondsSinceEpoch;
                             firebase_storage1.Reference ref = firebase_storage1
                                 .FirebaseStorage.instance
@@ -1578,7 +1731,7 @@ class _UniformScreenState extends State<UniformScreen> {
                             width: 100,
                             height: 50,
                             decoration: BoxDecoration(
-                              // color: Colors.black,
+                                // color: Colors.black,
                                 color: Constants.gray,
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -1632,7 +1785,7 @@ class _UniformScreenState extends State<UniformScreen> {
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         OrderScreen()),
-                                    (Route<dynamic> route) => false);
+                                (Route<dynamic> route) => false);
                             // dialog3(context);
                             // toastMessage("Loading Please Wait");
                           },
@@ -1640,7 +1793,7 @@ class _UniformScreenState extends State<UniformScreen> {
                             width: 100,
                             height: 50,
                             decoration: BoxDecoration(
-                              // color: Colors.black,
+                                // color: Colors.black,
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 0),

@@ -341,13 +341,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
             icon: Icon(Icons.history),
             label: 'History',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.accessibility_new_outlined,
-              color: Colors.black45,
-            ),
-            label: 'UniForm',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Icons.accessibility_new_outlined,
+          //     color: Colors.black45,
+          //   ),
+          //   label: 'UniForm',
+          // ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black45,

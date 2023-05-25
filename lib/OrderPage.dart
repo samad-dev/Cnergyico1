@@ -278,12 +278,12 @@ class _OrderScreenState extends State<OrderScreen> {
         //       builder: (context) => OrderScreen()
         //   ),
         // );
-        Navigator.pushReplacement<void, void>(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => const OrderScreen(),
-          ),
-        );
+      //   Navigator.pushReplacement<void, void>(
+      //     context,
+      //     MaterialPageRoute<void>(
+      //       builder: (BuildContext context) => const OrderScreen(),
+      //     ),
+      //   );
       }
       else if (index == 1) {
         Navigator.pushReplacement<void, void>(
@@ -293,30 +293,30 @@ class _OrderScreenState extends State<OrderScreen> {
           ),
         );
       }
-      else if(index == 3){
-        Navigator.pushReplacement<void, void>(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => const PriceList(),
-          ),
-        );
-      }
-      else if(index == 4){
-        Navigator.pushReplacement<void, void>(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => const Lube(),
-          ),
-        );
-      }
-      else if(index == 5){
-        Navigator.pushReplacement<void, void>(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => const Complaint(),
-          ),
-        );
-      }
+      // else if(index == 3){
+      //   Navigator.pushReplacement<void, void>(
+      //     context,
+      //     MaterialPageRoute<void>(
+      //       builder: (BuildContext context) => const PriceList(),
+      //     ),
+      //   );
+      // }
+      // else if(index == 4){
+      //   Navigator.pushReplacement<void, void>(
+      //     context,
+      //     MaterialPageRoute<void>(
+      //       builder: (BuildContext context) => const Lube(),
+      //     ),
+      //   );
+      // }
+      // else if(index == 5){
+      //   Navigator.pushReplacement<void, void>(
+      //     context,
+      //     MaterialPageRoute<void>(
+      //       builder: (BuildContext context) => const Complaint(),
+      //     ),
+      //   );
+      // }
 
     });
   }
@@ -939,22 +939,22 @@ class _OrderScreenState extends State<OrderScreen> {
                     icon: Icon(Icons.history,color: Colors.black45,),
                     label: 'History',
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.accessibility_new_outlined,color: Colors.black45,),
-                    label: 'UniForm',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.price_change_outlined,color: Colors.black45,),
-                    label: 'Price List',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.comment,color: Colors.black45,),
-                    label: 'Complaint',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.access_time_outlined,color: Colors.black45,),
-                    label: 'Lube',
-                  ),
+                  // BottomNavigationBarItem(
+                  //   icon: Icon(Icons.accessibility_new_outlined,color: Colors.black45,),
+                  //   label: 'UniForm',
+                  // ),
+                  // BottomNavigationBarItem(
+                  //   icon: Icon(Icons.price_change_outlined,color: Colors.black45,),
+                  //   label: 'Price List',
+                  // ),
+                  // BottomNavigationBarItem(
+                  //   icon: Icon(Icons.comment,color: Colors.black45,),
+                  //   label: 'Complaint',
+                  // ),
+                  // BottomNavigationBarItem(
+                  //   icon: Icon(Icons.access_time_outlined,color: Colors.black45,),
+                  //   label: 'Lube',
+                  // ),
                 ],
                 currentIndex: _selectedIndex,
                 selectedItemColor: Colors.amber[800],
