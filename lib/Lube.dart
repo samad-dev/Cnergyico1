@@ -416,7 +416,14 @@ class _LubeScreenState extends State<Lube> {
       //   child: Icon(Icons.refresh),
       // ),
 
-      body: SingleChildScrollView(
+      body: Column(
+        children: [
+          Center(
+            child: Text('Coming Soon',style: TextStyle(fontSize:16,fontWeight: FontWeight.w700),),
+          ),
+        ],
+      ),
+      /*SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -671,7 +678,7 @@ class _LubeScreenState extends State<Lube> {
             ),
           ],
         ),
-      ),
+      ),*/
 
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

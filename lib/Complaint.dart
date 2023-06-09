@@ -407,6 +407,13 @@ class _ComplaintScreenState extends State<Complaint> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Center(
+              child: Text('Coming Soon',style: TextStyle(fontSize:16,fontWeight: FontWeight.w700),),
+            ),
+          ],
+        )
+        /*Column(
+          children: [
             Container(
               child: Column(
                 children: [
@@ -622,7 +629,7 @@ class _ComplaintScreenState extends State<Complaint> {
               ),
             ),
           ],
-        ),
+        ),*/
       ),
 
       bottomNavigationBar: BottomNavigationBar(

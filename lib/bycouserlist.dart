@@ -26,11 +26,12 @@ class BycoUserScreens extends StatefulWidget {
 class _BycoUserScreensState extends State<BycoUserScreens> {
   var uid, uname, upass, ucnic, uphone;
   late String _mySelection;
-  File? _image;
+  File? _image ;
+  List<File?> selectedImage = [];
   File? _image1;
   UploadTask? task;
   late String basename;
-
+  List<String> selectedItemValue = [];
   int _counter = 0;
 
   // File _image;
@@ -41,7 +42,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
 
   String isLoadingCircle = "false";
   // ignore: deprecated_member_use
-  TextEditingController amountController = new TextEditingController();
+  List<TextEditingController> amountController = [];
   void shprefer1() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
@@ -101,9 +102,9 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
     return "Sucess";
   }
   bool post_clicked = false;
-  Future<void> request(String orderid) async {
+  Future<void> request(String orderid,String amount) async {
     print(dropdownValue3);
-    print(amountController.text.toString());
+    // print(amountController.text.toString());
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     int date = DateTime.now().microsecondsSinceEpoch;
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance.ref('/bycopay$date');
@@ -112,11 +113,11 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
     var newUrl = await ref.getDownloadURL();
     print(newUrl.toString());
     print(
-        'http://151.106.17.246:8080/byco/api/update_order_image_account.php?image=${newUrl.toString()}&amount=${amountController.text.toString()}&orderid=${orderid}');
+        'http://151.106.17.246:8080/byco/api/update_order_image_account.php?image=${newUrl.toString()}&amount=${amount}&orderid=${orderid}');
     var request = http.Request(
         'GET',
         Uri.parse(
-            'http://151.106.17.246:8080/byco/api/update_order_image_account.php?image=${newUrl.toString()}&bank=${dropdownValue3}&amount=${amountController.text.toString()}&orderid=${orderid}'));
+            'http://151.106.17.246:8080/byco/api/update_order_image_account.php?image=${newUrl.toString()}&bank=${dropdownValue3}&amount=${amount}&orderid=${orderid}'));
 
     http.StreamedResponse response = await request.send();
 
@@ -230,6 +231,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
 
   @override
   Widget build(BuildContext context) {
+    List cardList = [];
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -243,26 +245,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                 ),
               ),
             ),
-            // Row(
-            //   children: [
-            //     GestureDetector(
-            //         onTap: () {
-            //           Navigator.pushReplacement<void, void>(
-            //             context,
-            //             MaterialPageRoute<void>(
-            //               builder: (BuildContext context) =>
-            //               const UniformScreen(),
-            //             ),
-            //           );
-            //         },
-            //         child: Container(
-            //             child: Icon(
-            //               Icons.add,
-            //               color: Constants.primaryorrange,
-            //             ))),
-            //     // GestureDetector(onTap: (){ upload(username.text, password.text, cnic.text, phone.text); }, child: Container(margin: EdgeInsets.only(left: 20), child: Icon(Icons.delete, color: Constants.primaryColor,)))
-            //   ],
-            // ),
+
             GestureDetector(
               onTap: () {
                 signout();
@@ -292,15 +275,16 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
           //   label: 'Order',
           // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.history),
+            icon: Icon(Icons.accessibility_new_outlined,color: Colors.grey,),
             label: 'Uniform',
+
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.accessibility_new_outlined,color: Colors.amber,),
+            icon: Icon(Icons.history,color: Colors.amber,),
             label: 'Invoice',
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: 1,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
@@ -321,6 +305,11 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
             : ListView.builder(
           itemCount: _loadedPhotos.length,
           itemBuilder: (BuildContext ctx, index) {
+            amountController!.add(new TextEditingController());
+            for (int i = 0; i < _loadedPhotos.length; i++) {
+              selectedItemValue.add("NA");
+              selectedImage.add(_image);
+            }
             return Padding(
               padding: const EdgeInsets.all(10),
               child: Container(
@@ -485,7 +474,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                         Container(
                           width: double.infinity,
                           child: DropdownButton<String>(
-                            value: dropdownValue3,
+                            value: selectedItemValue[index].toString(),
                             // value: "HBL Bank Ltd.",
                             hint: Text('Select bank'),
                             // icon: const Icon(Icons.arrow_downward),
@@ -499,28 +488,12 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                             // ),
                             onChanged: (String? newValue) {
                               setState(() {
-                                dropdownValue3 = newValue!;
+                                selectedItemValue[index] = newValue!;
                               });
                             },
                             // value: dropdownValue3.toString(),
-                            items: <String>[
-                              'NA',
-                              'HBL Bank Ltd.',
-                              'Bank AL Habib',
-                              'MCB',
-                              'Silk Bank',
-                              'Askari Bank',
-                              'Bank Alfalah Limited',
-                              'National Bank',
-                              'Meezan Bank',
-                              'Faysal Bank (Islamic)',
-                              'Other'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
+                            items: _dropDownItem(),
+
                           ),
                         ),
 
@@ -549,7 +522,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                                 symbol: ' ',
                               )
                             ],
-                            controller: amountController,
+                            controller: amountController[index],
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 border: UnderlineInputBorder(),
@@ -565,7 +538,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
 
                         InkWell(
                           onTap: () {
-                            dialog(context);
+                            dialog(context,index);
                           },
                           child: Column(
                             children: [
@@ -576,10 +549,10 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                                   // width: MediaQuery.of(context).size.width * 1,
                                   height: 150,
                                   width: double.infinity,
-                                  child: _image != null
+                                  child: selectedImage[index] != null
                                       ? ClipRect(
                                     child: Image.file(
-                                      _image!.absolute,
+                                      selectedImage[index]!.absolute,
                                       width: 100,
                                       height: 100,
                                       fit: BoxFit.fitHeight,
@@ -606,7 +579,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
 
                         GestureDetector(
                           onTap: () {
-                            request(_loadedPhotos[index]["id"]);
+                            request(_loadedPhotos[index]["id"],amountController[index].text.toString());
                           },
                           child: Container(
                             alignment: Alignment.center,
@@ -645,12 +618,12 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
 
   final picker = ImagePicker();
 
-  Future getImage() async {
+  Future getImage(index) async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
-        _image = File(pickedFile.path);
-
+        selectedImage[index] = File(pickedFile.path);
+        print(selectedImage[index]);
       } else {
         print("no image selected");
       }
@@ -668,18 +641,37 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
     });
   }
 
-  void dialog(context) {
+  List<DropdownMenuItem<String>> _dropDownItem() {
+    List<String> ddl = ['NA',
+      'HBL Bank Ltd.',
+      'Bank AL Habib',
+      'MCB',
+      'Silk Bank',
+      'Askari Bank',
+      'Bank Alfalah Limited',
+      'National Bank',
+      'Meezan Bank',
+      'Faysal Bank (Islamic)',
+      'Other'];
+    return ddl
+        .map((value) => DropdownMenuItem(
+      value: value,
+      child: Text(value),
+    ))
+        .toList();
+  }
+  void dialog(context,index) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             content: Container(
-              height: 120,
+              height: 60,
               child: Column(
                 children: [
                   InkWell(
                     onTap: () {
-                      getImage();
+                      getImage(index);
                       Navigator.pop(context);
                     },
                     child: ListTile(
@@ -687,7 +679,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                       title: Text("Gallery"),
                     ),
                   ),
-                  InkWell(
+                  /*InkWell(
                     onTap: () {
                       getCamera();
                       Navigator.pop(context);
@@ -696,7 +688,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                       leading: Icon(Icons.camera_alt),
                       title: Text("Camera"),
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ),

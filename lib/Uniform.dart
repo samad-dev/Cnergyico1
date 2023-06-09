@@ -148,7 +148,7 @@ class _UniformScreenState extends State<UniformScreen> {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      Fluttertoast.showToast(msg: "Order Placed Successfully");
+      Fluttertoast.showToast(msg: "Please Pay Invoice Before Uniform Delivery");
     } else {
       Fluttertoast.showToast(msg: response.statusCode.toString());
     }
