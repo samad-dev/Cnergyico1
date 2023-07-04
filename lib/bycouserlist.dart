@@ -623,18 +623,23 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
     setState(() {
       if (pickedFile != null) {
         selectedImage[index] = File(pickedFile.path);
+        _image = selectedImage[index];
         print(selectedImage[index]);
+        Fluttertoast.showToast(msg: "Image Attached Successfully");
       } else {
         print("no image selected");
       }
     });
   }
 
-  Future getCamera() async {
+  Future getCamera(index) async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
     setState(() {
       if (pickedFile != null) {
-        _image = File(pickedFile.path);
+        selectedImage[index] = File(pickedFile.path);
+        _image = selectedImage[index];
+        print(selectedImage[index]);
+        Fluttertoast.showToast(msg: "Image Attached Successfully");
       } else {
         print("no image selected");
       }
@@ -666,7 +671,7 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
         builder: (BuildContext context) {
           return AlertDialog(
             content: Container(
-              height: 60,
+              height: 120,
               child: Column(
                 children: [
                   InkWell(
@@ -679,16 +684,16 @@ class _BycoUserScreensState extends State<BycoUserScreens> {
                       title: Text("Gallery"),
                     ),
                   ),
-                  /*InkWell(
+                  InkWell(
                     onTap: () {
-                      getCamera();
+                      getCamera(index);
                       Navigator.pop(context);
                     },
                     child: ListTile(
                       leading: Icon(Icons.camera_alt),
                       title: Text("Camera"),
                     ),
-                  ),*/
+                  ),
                 ],
               ),
             ),
